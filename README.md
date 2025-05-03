@@ -1,1 +1,1 @@
-# Fruit-Disease
+# Fruit-Disease Classification with Vision Transformer
