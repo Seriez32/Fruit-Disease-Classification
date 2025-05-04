@@ -4,10 +4,12 @@ This project implements a binary classification model to detect diseased and hea
 
 ## Project Structure
 
-- `model.py`: Defines the Vision Transformer model.
-- `data.py`: Handles data loading and preprocessing with augmentation.
-- `train.py`: Implements the training and validation loop.
-- `evaluate.py`: Evaluates the model and generates confusion matrix and ROC curve.
+- `train_CNN.py`: Training with CNN.
+- `train_EfficientNetB0.py`: Training with EfficientNetB0.
+- `train_EfficientNetB0_optimized.py`: Training with EfficientNetB0_optimized.
+- `train_ResNet34.py`: Training with ResNet34.
+- `train_VGG16.py`: Training with VGG16.
+- `train_Vision_transformers.py`: Training with VGG16.
 - `requirements.txt`: Lists the project dependencies.
 
 ## Prerequisites
