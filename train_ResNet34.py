@@ -74,3 +74,43 @@ history = model.fit(
     validation_data=validation_generator,
     callbacks=[early_stopping, reduce_lr]
 )
+
+
+# Evaluate model
+# Obtain true labels and predicted probabilities
+y_true = test_generator.classes
+y_pred_prob = model.predict(test_generator)
+y_pred = np.argmax(y_pred_prob, axis=1)
+
+# If your model outputs probabilities for both classes, you may need to extract the probability for the positive class (usually class 1).
+# For binary classification, the positive class probability is y_pred_prob[:, 1].
+y_pred_prob_positive = y_pred_prob[:, 1]
+
+# Classification report
+class_labels = list(test_generator.class_indices.keys())
+report = classification_report(y_true, y_pred, target_names=class_labels)
+print(report)
+
+# Confusion matrix
+cm = confusion_matrix(y_true, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', xticklabels=class_labels, yticklabels=class_labels, cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
+
+# ROC Curve and AUC for binary classification
+fpr, tpr, _ = roc_curve(y_true, y_pred_prob_positive)
+roc_auc = auc(fpr, tpr)
+
+plt.figure(figsize=(10, 6))
+plt.plot(fpr, tpr, color='blue', lw=2, label=f'ROC Curve (AUC = {roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic')
+plt.legend(loc='lower right')
+plt.show()
